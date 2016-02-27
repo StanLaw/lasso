@@ -1,7 +1,7 @@
 import numpy
 import json
 
-class LassoII:
+class LassoIII:
 	def __init__(self,lam=10**-3,stepsize=10**-3,sample_size=10,\
 			dim_size=10,frequency=10,lowerbound=10**-3):
 		self.x = numpy.array([[1,1],[1,1],[1,1],[2,2]],dtype=float)
@@ -80,7 +80,7 @@ class LassoII:
 		self.b = b2
 
 if __name__ == "__main__":
-	model = LassoII()
+	model = LassoIII()
 	with open("lasso.data","r") as fr:
 		d = json.load(fr)
 		model.b = d['b']
