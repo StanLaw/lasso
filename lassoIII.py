@@ -3,7 +3,7 @@ import json
 
 class LassoII:
 	def __init__(self,lam=10**-3,stepsize=10**-3,sample_size=10,\
-			dim_size=10,frequency=10):
+			dim_size=10,frequency=10,lowerbound=10**-3):
 		self.x = numpy.array([[1,1],[1,1],[1,1],[2,2]],dtype=float)
 		self.y = numpy.array([1,1,1,3],dtype=float)
 		self.w = numpy.array([1,1],dtype=float)
@@ -15,6 +15,7 @@ class LassoII:
 		self.sample_size = sample_size
 		self.dim_size = dim_size
 		self.frequency = frequency
+		self.lowerbound = lowerbound
 
 	def ff(self):
 		f_theta = 0.5 * (numpy.dot(self.x,self.w) + self.b)**2
@@ -34,6 +35,11 @@ class LassoII:
 		mu_w = mu_w/n
 		mu_b = float(mu_b)/n
 
+		activeset = set([])
+		for k in range(d):
+			if mu_w[k] >= self.lowerbound:
+				activeset.add(k)
+
 		w2 = numpy.array(self.w)
 		b2 = self.b
 		for t in range(self.frequency):
@@ -41,6 +47,8 @@ class LassoII:
 			j = numpy.random.randint(d)
 
 			for jj in range(self.dim_size):
+				if activeset.__contains__(jj) == False:
+					continue
 				l_w = 0
 				l_w2 = 0
 				for ii in range(self.sample_size):
@@ -84,12 +92,3 @@ if __name__ == "__main__":
 		model.bp_and_update()
 		if i % 10 == 0 :
 			print "model.ff() = ",model.ff()
-
-
-
-
-
-
-
-
-

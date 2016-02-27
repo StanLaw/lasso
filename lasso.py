@@ -8,7 +8,7 @@ class Lasso:
 		self.x = numpy.array([[1,1],[1,1],[1,1],[2,2]],dtype=float)
 		self.y = numpy.array([1,1,1,3],dtype=float)
 		self.w = numpy.array([1,1],dtype=float)
-		self.b = 1
+		self.b = 1.0
 		self.l = 0
 
 		self.lam = lam
@@ -57,10 +57,10 @@ if __name__ == "__main__":
 		model.x = numpy.array(d['x'])
 		model.y = numpy.array(d['y'])
 		model.w = numpy.array(d['w'])
-	print model.ff()
+	print "model.ff() = ",model.ff()
 	for i in range(100):
-		model.bp_and_update()
+		model.bp_and_update(step=i+1)
 		if i % 10 == 0 :
-			print model.ff()
+			print "model.ff() = ",model.ff()
 
 
