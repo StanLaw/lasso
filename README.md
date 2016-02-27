@@ -1,0 +1,1 @@
+“Lasso” is a kind of linear regression method. Basic idea of “Lasso” is to minimize loss function with the constraint that the sum of absolute value of all coefficients is less than a certain positive number, such that coefficients corresponding to useless features will be equal to 0.

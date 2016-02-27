@@ -1,5 +1,6 @@
 #coding:utf-8
 import numpy
+import json
 
 class Lasso:
 	def __init__(self,lam=10**-3,stepsize=10**-3,sample_size=10,\
@@ -48,13 +49,18 @@ class Lasso:
 		l_b = float(l_b)/self.sample_size
 		self.b -= decayedstep * l_b
 
-class LassoII:
-	pass
-
 if __name__ == "__main__":
 	model = Lasso()
+	with open("lasso.data","r") as fr:
+		d = json.load(fr)
+		model.b = d['b']
+		model.x = numpy.array(d['x'])
+		model.y = numpy.array(d['y'])
+		model.w = numpy.array(d['w'])
 	print model.ff()
 	for i in range(100):
 		model.bp_and_update()
-	print model.ff()
+		if i % 10 == 0 :
+			print model.ff()
+
 
